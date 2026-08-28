@@ -1,0 +1,9 @@
+# The container runs Linux. entrypoint.sh with CRLF line endings fails at exec
+# with a "no such file or directory" error naming the interpreter, which reads
+# as a missing shell rather than a line-ending problem. Windows checkouts have
+# core.autocrlf enabled by default, so pin this rather than relying on it.
+* text=auto eol=lf
+*.sh text eol=lf
+Dockerfile text eol=lf
+*.yml text eol=lf
+*.toml text eol=lf

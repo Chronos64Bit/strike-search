@@ -1,19 +1,133 @@
-# see https://docs.searxng.org/admin/settings/settings.html#settings-use-default-settings
+# Strike Search: SearXNG configuration.
+#
+# This file is the product. It ends up at /etc/searxng/settings.yml, copied
+# there by entrypoint.sh on every boot -- so editing it here and redeploying
+# is the way to change the running instance, and editing it inside the
+# container is not: the next restart overwrites that.
+#
+# `general.donation_url` and `contact_url` take `false` to mean "hide", but
+# the `brand:` URLs below do not. See the note there before changing either.
+
 use_default_settings: true
+
 general:
-  debug: true
+  instance_name: "Strike Search"
+  # No donation link. Strike is not asking anyone for money here, and the
+  # default one points at SearXNG's, which is confusing on a branded instance.
+  donation_url: false
+  contact_url: false
+  enable_metrics: false
+
+brand:
+  new_issue_url: https://ventryx.xyz
+  docs_url: https://ventryx.xyz
+  # These two are typed as strings by SearXNG's schema, so "off" is an empty
+  # string. Using `false` here is what took the live instance down on
+  # 2026-08-27: SearXNG rejects the whole file with
+  #   Expected `str`, got `bool` - at `brand.public_instances`
+  # and refuses to boot. Valid YAML is not the same as a valid settings.yml.
+  public_instances: ""
+  wiki_url: ""
+  issue_url: https://ventryx.xyz
+
 search:
+  safe_search: 0
+  autocomplete: ""          # no autocomplete: it would send keystrokes onward
+  default_lang: "en"
   formats:
     - html
     - json
-    - csv
+
 server:
-  # base_url is defined in the SEARXNG_BASE_URL environment variable
-  secret_key: "my-custom-secret-key-from-env"
-  limiter: false 
-  image_proxy: true
+  # base_url comes from SEARXNG_BASE_URL in the environment.
+  #
+  # This value is a placeholder. entrypoint.sh rewrites this line on every
+  # boot from SEARXNG_SECRET_KEY, and refuses to start if that variable is
+  # unset. The line has to exist for the rewrite to have something to match --
+  # omitting it is what left SearXNG on its public default key and produced a
+  # crash loop on 2026-08-27. The real secret never lives in this repo.
+  secret_key: "ultrasecretkey"
+  # Bot protection is off because it needs Redis or Valkey behind it and this
+  # deployment has neither. SearXNG's limiter stores its counters there; with
+  # no backing store it does not fail loudly, it just stops limiting, so
+  # setting this true would buy the appearance of protection and none of it.
+  # Turn it on in the same change that adds Redis, not before.
+  limiter: false
+  public_instance: false
+  image_proxy: true         # images load through the instance, not from the
+                            # origin site, so browsing results does not leak
+                            # requests to every site in the list
+
 ui:
-  static_use_hash: true
-# Redis configuration
-# redis:
-#   url: ${REDIS_URL}
+  default_theme: simple
+  theme_args:
+    simple_style: dark      # Strike is dark. Light chrome fights everything.
+  center_alignment: true
+  infinite_scroll: false
+  query_in_title: true
+  static_use_hash: true     # cache-busting hashes on static assets; the
+                            # template had this on and it is purely a caching win
+
+# ---------------------------------------------------------------------------
+# Engines
+# ---------------------------------------------------------------------------
+# The important tuning on a hosted instance.
+#
+# Google and Bing CAPTCHA and ban datacenter IP ranges, because that is where
+# scrapers live. Left enabled they do not error, they return nothing, and the
+# whole instance looks broken while actually being rate-limited.
+#
+# The engines below tolerate datacenter IPs. Google and Bing are disabled
+# rather than removed so they are easy to re-enable on infrastructure where
+# they work, for example a residential connection.
+
+engines:
+  - name: google
+    disabled: true
+  - name: bing
+    disabled: true
+
+  - name: duckduckgo
+    disabled: false
+  - name: brave
+    disabled: false
+  - name: mojeek
+    disabled: false
+  - name: startpage
+    disabled: false
+  - name: wikipedia
+    disabled: false
+  - name: wikidata
+    disabled: false
+
+# ---------------------------------------------------------------------------
+# Result ranking
+# ---------------------------------------------------------------------------
+# Searching "ventryx" should put ventryx.xyz above the other things that share
+# the name. The hostnames plugin does this without touching engine code.
+#
+# What this does and does not do, because the difference matters: it reorders
+# results the engines already returned. It cannot inject ventryx.xyz if no
+# engine surfaced it. If the site is not indexed by DuckDuckGo, Brave or
+# Mojeek, boosting has nothing to boost, and the fix is indexing rather than
+# configuration.
+#
+# Boosting your own site on your own instance is fine. Presenting it as an
+# organic top result when it is placed there by the operator is where that
+# stops being fine, so this only reorders honest results rather than
+# fabricating one.
+
+hostnames:
+  high_priority:
+    - '(.*\.)?ventryx\.xyz$'
+
+plugins:
+  searx.plugins.hostnames.SXNGPlugin:
+    active: true
+
+outgoing:
+  request_timeout: 4.0
+  max_request_timeout: 8.0
+  pool_connections: 100
+  pool_maxsize: 20
+  enable_http2: true
