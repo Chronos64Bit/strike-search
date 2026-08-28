@@ -83,7 +83,7 @@ ui:
 
 engines:
   - name: google
-    disabled: true
+    disabled: false
   - name: bing
     disabled: true
 
