@@ -113,7 +113,21 @@
   margin: .5rem 0 auto;
 }
 
-/* Front page: give the wordmark room instead of relying on plain text */
+/* Front page. SearXNG's own CSS draws the logo as a background-image on
+ * .index .title and visually hides the <h1> text (visibility:hidden, kept
+ * for accessibility) -- but that hidden element still reserves its layout
+ * box at font-size:4em, .title inherits that height, and the background
+ * image scales up to fill it via background-size:contain. That is what
+ * rendered a giant SearXNG wordmark here even after every template and
+ * asset override: img/searxng.png was the one file this stylesheet forgot.
+ *
+ * Rather than fight that box's phantom sizing, drop the background-image
+ * approach entirely and use a normal, visible <img> + <h1>, sized directly.
+ */
+.index .title {
+  background: none;
+  min-height: 0;
+}
 .index .title img.wordmark {
   height: 64px;
   width: auto;
@@ -124,6 +138,8 @@
 /* Flat, no glow: matches the browser chrome's rule that motion and colour only
  * happen where they carry information. */
 .index .title h1 {
+  visibility: visible;
+  font-size: 1.75em;
   font-weight: 600;
   letter-spacing: .01em;
 }
