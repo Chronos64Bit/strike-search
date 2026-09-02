@@ -40,6 +40,25 @@ Briefly: Strike branding, dark theme, no autocomplete, image proxy on, Google
 and Bing disabled because they block datacenter IPs, and ventryx.xyz boosted
 in the ranking.
 
+## Visual branding
+
+`overlay/` holds the parts of the visual identity `settings.yml` cannot
+reach: the logo, four templates (`base.html`, `index.html`, `search.html`,
+`page_with_header.html`), and `strike-brand.css`, a hand-written stylesheet
+that overrides the colour variables SearXNG's own minified CSS defines under
+`:root.theme-dark`. It is loaded after that stylesheet in `base.html`, so its
+values win without anyone hand-editing a minified file. The `Dockerfile`
+copies each of these onto the matching path under
+`/usr/local/searxng/searx/` at build time, over top of what the base image
+ships.
+
+This is a deliberate second overlay, distinct from the `/etc/searxng` one
+described above: that one replaces *configuration* SearXNG reads at startup,
+this one replaces *application files* -- templates and static assets baked
+into the image itself. Do not edit these by hand inside a running container;
+the next redeploy pulls a fresh image and any container-only edit is gone
+without a trace, same as an `/etc/searxng/settings.yml` edit would be.
+
 ### Environment
 
 | Variable | Required | Notes |

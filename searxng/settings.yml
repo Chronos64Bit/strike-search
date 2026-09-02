@@ -29,6 +29,14 @@ brand:
   public_instances: ""
   wiki_url: ""
   issue_url: https://ventryx.xyz
+  # Tab colour and the "add to home screen" splash background. Matches the
+  # dark palette in static/themes/simple/strike-brand.css (see overlay/) --
+  # light-theme colours are left at SearXNG's defaults since Strike doesn't
+  # brand a light mode at all: "Strike is dark. Light chrome fights
+  # everything." (below, under ui.theme_args).
+  pwa_colors:
+    theme_color_dark: "#4f7cff"
+    background_color_dark: "#121214"
 
 search:
   safe_search: 0

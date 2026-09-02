@@ -26,6 +26,23 @@ ENV UWSGI_THREADS=${SEARXNG_UWSGI_THREADS:-4}
 COPY ./searxng /etc/searxng
 COPY ./searxng /etc/searxng-backup
 
+# Strike's branding: templates, logo, and a CSS file that overrides the
+# colour variables SearXNG's own stylesheet defines, loaded after it so these
+# values win without patching the minified file directly. Baked into the
+# image here rather than left as a live edit in the running container, so a
+# redeploy doesn't quietly revert to stock SearXNG branding. See overlay/.
+COPY overlay/searx/templates/simple/base.html /usr/local/searxng/searx/templates/simple/base.html
+COPY overlay/searx/templates/simple/index.html /usr/local/searxng/searx/templates/simple/index.html
+COPY overlay/searx/templates/simple/search.html /usr/local/searxng/searx/templates/simple/search.html
+COPY overlay/searx/templates/simple/page_with_header.html /usr/local/searxng/searx/templates/simple/page_with_header.html
+COPY overlay/searx/static/themes/simple/strike-brand.css /usr/local/searxng/searx/static/themes/simple/strike-brand.css
+COPY overlay/searx/static/themes/simple/img/favicon.png /usr/local/searxng/searx/static/themes/simple/img/favicon.png
+COPY overlay/searx/static/themes/simple/img/favicon.svg /usr/local/searxng/searx/static/themes/simple/img/favicon.svg
+COPY overlay/searx/static/themes/simple/img/searxng.svg /usr/local/searxng/searx/static/themes/simple/img/searxng.svg
+COPY overlay/searx/static/themes/simple/img/strike-mark.png /usr/local/searxng/searx/static/themes/simple/img/strike-mark.png
+COPY overlay/searx/static/themes/simple/img/192.png /usr/local/searxng/searx/static/themes/simple/img/192.png
+COPY overlay/searx/static/themes/simple/img/512.png /usr/local/searxng/searx/static/themes/simple/img/512.png
+
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 

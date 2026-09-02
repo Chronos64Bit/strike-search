@@ -1,0 +1,129 @@
+/* Strike brand palette for SearXNG's simple theme (dark).
+ *
+ * Overrides the CSS custom properties SearXNG's own stylesheet defines under
+ * `:root.theme-dark`, loaded after sxng-ltr.min.css so these values win without
+ * touching the minified file directly -- a SearXNG upgrade can replace that file
+ * wholesale and this still applies cleanly on top.
+ *
+ * Palette matches Strike's browser chrome (browser-overlay/strike/strike-chrome.css)
+ * so the search page and the browser it opens from read as one product.
+ *
+ * error / warning / success and one image-selection font colour are left at
+ * SearXNG's defaults on purpose: they are functional signal colours, not brand,
+ * and the omitted one pairs with a background this file cannot verify. */
+
+:root.theme-dark {
+  --color-base-font: #f0f0f2;
+  --color-base-font-rgb: 240, 240, 242;
+  --color-base-background: #121214;
+  --color-base-background-mobile: #121214;
+  --color-url-font: #8fb0ff;
+  --color-url-visited-font: #b79ad9;
+  --color-header-background: #161619;
+  --color-header-border: rgba(255,255,255,.07);
+  --color-footer-background: #161619;
+  --color-footer-border: rgba(255,255,255,.07);
+  --color-sidebar-border: rgba(255,255,255,.13);
+  --color-sidebar-font: #f0f0f2;
+  --color-sidebar-background: #161619;
+  --color-backtotop-font: #9a9aa2;
+  --color-backtotop-border: rgba(255,255,255,.07);
+  --color-backtotop-background: #1c1c21;
+  --color-btn-background: #4f7cff;
+  --color-btn-font: #ffffff;
+  --color-show-btn-background: #232329;
+  --color-show-btn-font: #f0f0f2;
+  --color-search-border: rgba(255,255,255,.13);
+  --color-search-shadow: 0 8px 24px rgba(0,0,0,.5);
+  --color-search-background: #161619;
+  --color-search-font: #f0f0f2;
+  --color-search-background-hover: #1c1c21;
+  --color-categories-item-selected-font: #8fb0ff;
+  --color-categories-item-border-selected: #4f7cff;
+  --color-autocomplete-font: #f0f0f2;
+  --color-autocomplete-border: rgba(255,255,255,.13);
+  --color-autocomplete-shadow: 0 8px 24px rgba(0,0,0,.5);
+  --color-autocomplete-background: #161619;
+  --color-autocomplete-background-hover: #1c1c21;
+  --color-answer-font: #9a9aa2;
+  --color-answer-background: #1c1c21;
+  --color-result-keyvalue-col-table: #161619;
+  --color-result-keyvalue-odd: #161619;
+  --color-result-keyvalue-even: #232329;
+  --color-result-background: #1c1c21;
+  --color-result-border: rgba(255,255,255,.07);
+  --color-result-url-font: #f0f0f2;
+  --color-result-vim-selected: rgba(35,35,41,.8);
+  --color-result-vim-arrow: #8fb0ff;
+  --color-result-description-highlight-font: #8fb0ff;
+  --color-result-link-font: #8fb0ff;
+  --color-result-link-font-highlight: #a9c4ff;
+  --color-result-link-visited-font: #b79ad9;
+  --color-result-publishdate-font: #5d5d66;
+  --color-result-engines-font: #9a9aa2;
+  --color-result-search-url-border: rgba(255,255,255,.13);
+  --color-result-search-url-font: #f0f0f2;
+  --color-result-detail-font: #f0f0f2;
+  --color-result-detail-label-font: #9a9aa2;
+  --color-result-detail-background: #1c1c21;
+  --color-result-detail-hr: rgba(255,255,255,.13);
+  --color-result-detail-link: #8fb0ff;
+  --color-result-detail-loader-border: rgba(240,240,242,.15);
+  --color-result-detail-loader-borderleft: #4f7cff;
+  --color-result-image-span-font: #9a9aa2;
+  --color-result-image-background: #1c1c21;
+  --color-settings-tr-hover: #232329;
+  --color-settings-engine-description-font: #9a9aa2;
+  --color-settings-table-group-background: #1c1c21;
+  --color-toolkit-badge-font: #f0f0f2;
+  --color-toolkit-badge-background: #232329;
+  --color-toolkit-kbd-font: #f0f0f2;
+  --color-toolkit-kbd-background: #232329;
+  --color-toolkit-dialog-border: rgba(255,255,255,.13);
+  --color-toolkit-dialog-background: #161619;
+  --color-toolkit-tabs-label-border: rgba(255,255,255,.07);
+  --color-toolkit-tabs-section-border: rgba(255,255,255,.13);
+  --color-toolkit-select-background: #232329;
+  --color-toolkit-select-border: rgba(255,255,255,.13);
+  --color-toolkit-select-background-hover: #2a2a30;
+  --color-toolkit-input-text-font: #f0f0f2;
+  --color-toolkit-checkbox-onoff-off-background: #232329;
+  --color-toolkit-checkbox-onoff-on-background: #232329;
+  --color-toolkit-checkbox-onoff-on-mark-background: #4f7cff;
+  --color-toolkit-checkbox-onoff-on-mark-color: #ffffff;
+  --color-toolkit-checkbox-onoff-off-mark-background: #c7c7cc;
+  --color-toolkit-checkbox-onoff-off-mark-color: #121214;
+  --color-toolkit-checkbox-label-background: #1c1c21;
+  --color-toolkit-checkbox-label-border: rgba(255,255,255,.07);
+  --color-toolkit-checkbox-input-border: #4f7cff;
+  --color-toolkit-engine-tooltip-border: rgba(255,255,255,.07);
+  --color-toolkit-engine-tooltip-background: #1c1c21;
+  --color-toolkit-loader-border: rgba(240,240,242,.15);
+  --color-toolkit-loader-borderleft: #4f7cff;
+  --color-doc-code: #f0f0f2;
+  --color-doc-code-background: #1c1c21;
+  --color-favicon-background-color: #e8e8ea;
+  --color-favicon-border-color: #d5d5d8;
+}
+
+/* Strike wordmark in the results-page search bar (see search.html) */
+#search_logo img.wordmark {
+  height: 30px;
+  width: auto;
+  margin: .5rem 0 auto;
+}
+
+/* Front page: give the wordmark room instead of relying on plain text */
+.index .title img.wordmark {
+  height: 64px;
+  width: auto;
+  display: block;
+  margin: 0 auto 1rem;
+}
+
+/* Flat, no glow: matches the browser chrome's rule that motion and colour only
+ * happen where they carry information. */
+.index .title h1 {
+  font-weight: 600;
+  letter-spacing: .01em;
+}
