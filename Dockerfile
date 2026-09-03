@@ -39,6 +39,7 @@ COPY overlay/searx/static/themes/simple/strike-brand.css /usr/local/searxng/sear
 COPY overlay/searx/static/themes/simple/img/favicon.png /usr/local/searxng/searx/static/themes/simple/img/favicon.png
 COPY overlay/searx/static/themes/simple/img/favicon.svg /usr/local/searxng/searx/static/themes/simple/img/favicon.svg
 COPY overlay/searx/static/themes/simple/img/searxng.svg /usr/local/searxng/searx/static/themes/simple/img/searxng.svg
+COPY overlay/searx/static/themes/simple/img/searxng.png /usr/local/searxng/searx/static/themes/simple/img/searxng.png
 COPY overlay/searx/static/themes/simple/img/strike-mark.png /usr/local/searxng/searx/static/themes/simple/img/strike-mark.png
 COPY overlay/searx/static/themes/simple/img/192.png /usr/local/searxng/searx/static/themes/simple/img/192.png
 COPY overlay/searx/static/themes/simple/img/512.png /usr/local/searxng/searx/static/themes/simple/img/512.png
