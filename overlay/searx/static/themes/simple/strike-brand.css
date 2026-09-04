@@ -143,6 +143,32 @@
   font-weight: 600;
   letter-spacing: .01em;
 }
+.index .title .tagline {
+  margin: .35rem 0 0;
+  color: #5d5d66;
+  font-size: .95em;
+}
+
+/* Front page search box: on the results page it has to stay compact next to
+ * the logo, but here it's the entire page's reason for existing, so give it
+ * real presence -- a wider target, a visible resting shadow (not just on
+ * hover), and an accent-coloured focus ring instead of the default's flat
+ * border-on-hover-only. */
+.index .search_box {
+  max-width: 600px;
+  margin: 2rem auto 0;
+  box-shadow: 0 8px 28px rgba(0,0,0,.45);
+  border-radius: 28px;
+  transition: box-shadow .15s ease, border-color .15s ease;
+}
+.index .search_box:focus-within {
+  border-color: #4f7cff;
+  box-shadow: 0 8px 28px rgba(0,0,0,.45), 0 0 0 3px rgba(79,124,255,.25);
+}
+.index #q {
+  padding-top: .85rem;
+  padding-bottom: .85rem;
+}
 
 /* Results page.
  *
@@ -258,4 +284,70 @@ footer {
 .result img,
 .result .thumbnail {
   border-radius: 8px;
+}
+
+/* Preferences page.
+ *
+ * "Engines" is per-engine on/off + weight tuning: operator-grade tuning
+ * that most searchers never touch and can already break results if
+ * misused. Same pattern as the category tabs -- hidden from the tab row,
+ * not disabled -- so it is still reachable at /preferences?... by anyone
+ * who knows to look, but it is not presented as a normal setting. */
+#tab-label-engines {
+  display: none;
+}
+
+/* Everything else here is default SearXNG chrome: a plain tab strip, dense
+ * unstyled fieldsets, and native <select>/<input> controls with no spacing
+ * rhythm. Give it the same card language as the results page. */
+.tabs {
+  display: flex;
+  gap: .25rem;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  margin-bottom: 1.5rem;
+}
+.tabs label {
+  padding: .6rem 1rem;
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  color: #9a9aa2;
+  font-weight: 600;
+  letter-spacing: .02em;
+  transition: background-color .12s ease, color .12s ease;
+}
+.tabs label:hover {
+  background: #1c1c21;
+  color: #f0f0f2;
+}
+.tabs input:checked + label {
+  color: #8fb0ff;
+  box-shadow: inset 0 -2px 0 #4f7cff;
+}
+
+fieldset {
+  background: #161619;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: .75rem;
+}
+fieldset legend {
+  font-weight: 600;
+  padding: 0 .35rem;
+}
+fieldset .description {
+  color: #5d5d66;
+  font-size: .85em;
+  margin-top: .35rem;
+}
+fieldset select,
+fieldset input[type="text"],
+fieldset input[type="password"] {
+  border-radius: 8px;
+}
+
+#search_form button[type="submit"],
+#search_form input[type="submit"] {
+  border-radius: 8px;
+  font-weight: 600;
 }
