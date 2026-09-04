@@ -143,3 +143,119 @@
   font-weight: 600;
   letter-spacing: .01em;
 }
+
+/* Results page.
+ *
+ * The sidebar (#sidebar: "Response time" engine table + "Download results"
+ * JSON link) is debug/operator info, not something a searcher needs open on
+ * every query -- it added a second column of near-empty collapsed <details>
+ * for no benefit. Dropped entirely; #urls takes the freed width. */
+#sidebar {
+  display: none;
+}
+#urls {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Category tabs: Strike only surfaces the four that a general search user
+ * actually reaches for. The rest (news, music, it, science, files, social
+ * media) stay enabled and reachable by URL (?category_news=1 etc.) -- this
+ * only trims the tab row, it does not disable the underlying engines. */
+button[name="category_news"],
+button[name="category_music"],
+button[name="category_it"],
+button[name="category_science"],
+button[name="category_files"],
+button[name="category_social media"] {
+  display: none;
+}
+
+/* Category tabs: replace the default's cramped, unstyled row with real
+ * spacing and a visible active/hover state driven by the accent colour
+ * rather than the border SearXNG draws by default. */
+#categories {
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  margin-bottom: 1.25rem;
+}
+#categories_container {
+  gap: .25rem;
+}
+.category_button {
+  border-radius: 8px 8px 0 0;
+  padding: .5rem .9rem;
+  transition: background-color .12s ease, color .12s ease;
+}
+.category_button:hover {
+  background: #1c1c21;
+}
+.category_button.selected {
+  color: #8fb0ff;
+  box-shadow: inset 0 -2px 0 #4f7cff;
+}
+
+.search_filters {
+  gap: .5rem;
+}
+.search_filters select {
+  border-radius: 8px;
+}
+
+/* Result cards: SearXNG's default draws these as a flat list separated by a
+ * thin rule. Give each one a real card boundary and hover state so a dense
+ * results page reads as distinct, scannable items instead of one long run
+ * of text. */
+.result {
+  background: #161619;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  margin-bottom: .75rem;
+  transition: border-color .12s ease, background-color .12s ease;
+}
+.result:hover {
+  border-color: rgba(255,255,255,.15);
+  background: #18181c;
+}
+.result .url_header {
+  text-decoration: none;
+  font-size: .85em;
+  color: #9a9aa2;
+}
+.result .url_i1 {
+  color: #9a9aa2;
+}
+.result h3 {
+  margin: .2rem 0 .35rem;
+  font-size: 1.1em;
+  line-height: 1.3;
+}
+.result h3 a {
+  text-decoration: none;
+}
+.result h3 a:hover {
+  text-decoration: underline;
+}
+.result .content {
+  color: #c7c7cc;
+  margin: 0 0 .5rem;
+  line-height: 1.45;
+}
+/* Per-result engine attribution + "cached" link: internal plumbing (which
+ * upstream engine served this, a Wayback Machine mirror link), not something
+ * a searcher needs on every single result. */
+.result .engines {
+  display: none;
+}
+
+/* "Powered by SearXNG / Source code / Issue tracker" footer: upstream
+ * project credit that doesn't belong on a branded instance. */
+footer {
+  display: none;
+}
+
+/* Video/image result thumbnails: rounded to match the card, not square. */
+.result img,
+.result .thumbnail {
+  border-radius: 8px;
+}
